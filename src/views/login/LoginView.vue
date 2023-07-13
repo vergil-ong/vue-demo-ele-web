@@ -36,11 +36,25 @@ export default {
   },
     methods: {
         onSubmit(formName) {
+          let that = this
         // 为表单绑定验证功能
         this.$refs[formName].validate((valid) => {
             if (valid) {
-            // 使用 vue-router 路由到指定页面，该方式称之为编程式导航
-            this.$router.push({name: 'about'});
+              let params =new URLSearchParams();
+              params.append('account',this.form.username);
+              params.append('password',this.form.password);
+              this.$axios.post("/login/user", params)
+                  .then(function(response){
+                      if (response.data.status == 200) {
+                        that.$router.push({name: 'about'});
+                      } else {
+                        alert('登陆失败')
+                      }
+                  })
+                  .catch(function(error){
+                    console.log(error)
+                  })
+            
             } else {
                 return false;
             }
