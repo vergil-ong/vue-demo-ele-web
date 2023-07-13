@@ -4,5 +4,6 @@ module.exports = defineConfig({
   devServer: {
     port: 6001,
     https: false
-  }
+  },
+  lintOnSave: false
 })
