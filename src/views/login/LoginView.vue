@@ -15,6 +15,7 @@
     </div>
 </template>
 <script>
+import {login} from '../../network/login'
 export default {
   data() {
     return {
@@ -40,20 +41,26 @@ export default {
         // 为表单绑定验证功能
         this.$refs[formName].validate((valid) => {
             if (valid) {
-              let params =new URLSearchParams();
-              params.append('account',this.form.username);
-              params.append('password',this.form.password);
-              this.$axios.post("/login/user", params)
-                  .then(function(response){
-                      if (response.data.status == 200) {
-                        that.$router.push({name: 'about'});
-                      } else {
-                        alert('登陆失败')
-                      }
-                  })
-                  .catch(function(error){
-                    console.log(error)
-                  })
+              let params = {}
+              params.account = this.form.username
+              params.password = this.form.password
+              login(params)
+              .then(res => {
+                console.log('1111', res)
+              }).catch(err => {
+                console.log(err)
+              })
+              // this.$axios.post("/login/user", params)
+              //     .then(function(response){
+              //         if (response.data.status == 200) {
+              //           that.$router.push({name: 'about'});
+              //         } else {
+              //           alert('登陆失败')
+              //         }
+              //     })
+              //     .catch(function(error){
+              //       console.log(error)
+              //     })
             
             } else {
                 return false;
