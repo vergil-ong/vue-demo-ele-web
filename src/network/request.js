@@ -5,7 +5,7 @@ import { Message } from 'element-ui'
 
 export function request(config) {
     const instance = axios.create({
-        baseURL: 'http://localhost:8002/v1',
+        baseURL: 'http://' + process.env.VUE_APP_API_HOST + ':8002/v1',
         timeout: 5000,
     })
 

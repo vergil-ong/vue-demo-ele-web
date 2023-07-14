@@ -16,6 +16,7 @@
 </template>
 <script>
 import {login} from '../../network/login'
+import store from '@/store'
 export default {
   data() {
     return {
@@ -46,22 +47,13 @@ export default {
               params.password = this.form.password
               login(params)
               .then(res => {
-                console.log('1111', res)
+                if (res.status == 200) {
+                  that.$router.push({name: 'admin'});
+                  store.state.token = res.data
+                }
               }).catch(err => {
                 console.log(err)
               })
-              // this.$axios.post("/login/user", params)
-              //     .then(function(response){
-              //         if (response.data.status == 200) {
-              //           that.$router.push({name: 'about'});
-              //         } else {
-              //           alert('登陆失败')
-              //         }
-              //     })
-              //     .catch(function(error){
-              //       console.log(error)
-              //     })
-            
             } else {
                 return false;
             }
