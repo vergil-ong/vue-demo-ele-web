@@ -5,6 +5,7 @@ import router from './router'
 import store from './store'
 import 'element-ui/lib/theme-chalk/index.css'
 import './network/axios_config'
+import './assets/css/admin.css'
 
 Vue.config.productionTip = false
 

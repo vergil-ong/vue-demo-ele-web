@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="admin-main">
         <span>商品管理</span>
     </div>
 </template>
