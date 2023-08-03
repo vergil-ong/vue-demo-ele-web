@@ -35,6 +35,9 @@
                 matched = matched.splice(1)
                 let adminRoutes = this.getAdminRoutes()
                 let fixBreadList = []
+                if (matched.length == 0) {
+                    return
+                }
                 let currentPath = matched[0].path
                 currentPath.split("/").forEach((item) => {
                     if (!item) {

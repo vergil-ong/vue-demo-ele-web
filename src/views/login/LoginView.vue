@@ -15,8 +15,7 @@
     </div>
 </template>
 <script>
-import {login} from '../../network/login'
-import store from '@/store'
+import {login} from '@/network/login'
 export default {
   data() {
     return {
@@ -49,7 +48,8 @@ export default {
               .then(res => {
                 if (res.status == 200) {
                   that.$router.push({name: 'admin'});
-                  store.state.token = res.data
+                  sessionStorage.setItem('token', res.data)
+                  console.log('save store ok')
                 }
               }).catch(err => {
                 console.log(err)

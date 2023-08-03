@@ -1,12 +1,12 @@
 import axios from 'axios'
-import store from '../store'
 import { Message } from 'element-ui'
+import router from '@/router'
 
 
 export function request(config) {
     const instance = axios.create({
         baseURL: 'http://' + process.env.VUE_APP_API_HOST + ':8002/v1',
-        timeout: 5000,
+        timeout: 30000,
     })
 
     instance.defaults.crossDomain = true
@@ -14,9 +14,10 @@ export function request(config) {
     instance.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8'; 
 
     instance.interceptors.request.use(config => {
-        const token = store.state.token;
+        const token = sessionStorage.getItem('token');
+        console.log('request token is ', token)
         if (token) {
-            config.headers.Authorization = token
+            config.headers.AuthToken = token
         }
         return config;
     }, err => {
@@ -31,6 +32,10 @@ export function request(config) {
                 message: '请求异常:' + res.data.message,
                 type: 'warning'
             });
+            if (res.data.status == 401) {
+                sessionStorage.clear()
+                router.push({path: '/'})
+            }
         }
         return res ? res.data : res;
     }, err => {

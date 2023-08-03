@@ -1,5 +1,4 @@
 import axios from 'axios'
-import store from '../store'
 import { Message } from 'element-ui'
 
 axios.defaults.baseURL = 'http://localhost:8002/v1';
@@ -9,10 +8,6 @@ axios.defaults.timeout = 5000;
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
 
 axios.interceptors.request.use(config => {
-    const token = store.state.token;
-    if (token) {
-        config.headers.Authorization = token
-    }
     return config;
 }, err => {
     console.log("请求拦截=>", err);
